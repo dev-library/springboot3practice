@@ -1,6 +1,8 @@
 package com.devrary.book.springboot3webservice;
 
 import com.devrary.book.springboot3webservice.web.HelloController;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ public class HelloControllerTest {
     private MockMvc mvc;
 
     @Test
+    @DisplayName("HelloController의 Hello 작동 여부 확인!")
     public void hello가_리턴된다() throws Exception {
         String hello = "hello";
 
@@ -28,4 +31,19 @@ public class HelloControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string(hello));
     }
+
+    @Test
+    @DisplayName("HelloController의 DTO리턴을 수행하는 /hello/dto의 작동 여부 확인")
+    public void helloDTO가_리턴된다() throws Exception {
+        String name = "hello";
+        int amount = 1000;
+
+        mvc.perform(MockMvcRequestBuilders.get("/hello/dto")
+                .param("name", name)
+                .param("amount", String.valueOf(amount)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect((MockMvcResultMatchers.jsonPath("$.name", Matchers.is(name))))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.amount", Matchers.is(amount)));
+    }
+
 }
