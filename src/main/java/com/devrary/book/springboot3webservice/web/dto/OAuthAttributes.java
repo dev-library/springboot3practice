@@ -1,7 +1,7 @@
 package com.devrary.book.springboot3webservice.web.dto;
 
+import com.devrary.book.springboot3webservice.domain.user.Member;
 import com.devrary.book.springboot3webservice.domain.user.Role;
-import com.devrary.book.springboot3webservice.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -39,8 +39,8 @@ public class OAuthAttributes {
                 .build();
     }
 
-    public User toEntity() {
-        return User.builder()
+    public Member toEntity() {
+        return Member.builder()
                 .name(name)
                 .email(email)
                 .picture(picture)

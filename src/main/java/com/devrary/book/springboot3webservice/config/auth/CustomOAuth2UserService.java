@@ -1,6 +1,6 @@
 package com.devrary.book.springboot3webservice.config.auth;
 
-import com.devrary.book.springboot3webservice.domain.user.User;
+import com.devrary.book.springboot3webservice.domain.user.Member;
 import com.devrary.book.springboot3webservice.domain.user.UserRepository;
 import com.devrary.book.springboot3webservice.web.dto.OAuthAttributes;
 import com.devrary.book.springboot3webservice.web.dto.SessionUser;
@@ -39,20 +39,20 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-        User user = saveOrUpdate(attributes);
+        Member member = saveOrUpdate(attributes);
 
-        httpSession.setAttribute("user", new SessionUser(user));
+        httpSession.setAttribute("user", new SessionUser(member));
 
-        return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(user.getRoleKey())),
+        return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(member.getRoleKey())),
                                                             attributes.getAttributes(),
                                                             attributes.getNameAttributeKey());
     }
 
-    private User saveOrUpdate(OAuthAttributes attributes){
-        User user = userRepository.findByEmail(attributes.getEmail())
+    private Member saveOrUpdate(OAuthAttributes attributes){
+        Member member = userRepository.findByEmail(attributes.getEmail())
                 .map(entity -> entity.update(attributes.getName(), attributes.getPicture()))
                 .orElse(attributes.toEntity());
 
-        return userRepository.save(user);
+        return userRepository.save(member);
     }
 }
