@@ -3,7 +3,7 @@
 --- 
 - 생성 : SpringInitialzr를 이용해서 생성
 - 버전 : java 17, gradle, war 세팅
-- 의존성 : SpringBootDevTools, Lombok, SpringConfigurationProcessor 선택
+- 최초의존성 : SpringBootDevTools, Lombok, SpringConfigurationProcessor 선택
 ---
 
 ---
@@ -13,30 +13,28 @@
 
 - 62페이지<br/>
 
-아래 코드 중 하나를 클래스 위에 붙여야 사용 가능<br/>
-@SpringBootTest
-<br/>
-@AutoConfigureMockMvc
+아래 어노테이션 조합쌍 중 하나를 클래스 위에 붙여야 사용 가능<br/>
+`@SpringBootTest`
+`@AutoConfigureMockMvc`
 
-@ExtendWith(SpringExtension.class)
-<br/>
-@WebMvcTest(controller<br/><br/>
-mvc.perform(MockMvcRequestBuilders.get("/hello"))
-<br/>
-.andExpect(MockMvcResultMatchers.status().isOk())
-<br/>
-.andExpect(MockMvcResultMatchers.content().string(hello));
+`@ExtendWith(SpringExtension.class)`
+`@WebMvcTest(controller)`
 <br/><br/>
+Junit5버전으로 오며 get(), status(), content() 메서드는 앞에 클래스명을 붙여야 호출됨.
+`mvc.perform(MockMvcRequestBuilders.get("/hello"))
+.andExpect(MockMvcResultMatchers.status().isOk())
+.andExpect(MockMvcResultMatchers.content().string(hello));`
 
-Junit5버전으로 오며 get(), statuc(), content() 메서드는 앞에 클래스명을 붙여야 호출됨.
+
+
 
 ---
 
 - 73페이지<br>
 
-Assertions.assertThat(dto.getName()).isEqualTo(name);
-<br>
-Assertions.assertThat(dto.getAmount()).isEqualTo(amount);
+`Assertions.assertThat(dto.getName()).isEqualTo(name);`
+
+`Assertions.assertThat(dto.getAmount()).isEqualTo(amount);`
 <br><br>
 역시 마찬가지고 Assertions 라는 클래스명을 붙여야 assertThat()) 사용 가능
 
@@ -44,18 +42,19 @@ Assertions.assertThat(dto.getAmount()).isEqualTo(amount);
 
 - 76페이지<br>
 
-jsonPath() -> MockMvcResultMatchers.jsonPath()
-<br>
-is() -> Matchers.is()
+`jsonPath()` -> `MockMvcResultMatchers.jsonPath()`
+
+`is()` -> `Matchers.is()`
 
 ---
 
 - 86페이지<br>
-// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
-implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '3.0.5'
-<br>
-// https://mvnrepository.com/artifact/com.h2database/h2
-testImplementation group: 'com.h2database', name: 'h2', version: '2.1.214'
+
+`// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
+implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '3.0.5'`
+
+`// https://mvnrepository.com/artifact/com.h2database/h2
+testImplementation group: 'com.h2database', name: 'h2', version: '2.1.214'`
 <br><br>
 의존성은 위와 같이 추가했음. 버전은 달라질 수 있음
 
@@ -63,24 +62,19 @@ testImplementation group: 'com.h2database', name: 'h2', version: '2.1.214'
 
 - 96페이지
 
-@After -> @AfterEach
-<br>
-@Before -> @BeforeEach
+`@After -> @AfterEach`
+`@Before -> @BeforeEach`
 <br><br>
 
 ---
 
 - 100페이지
 
-spring.jpa.show-sql=true
-<br>
+`spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL57Dialect
-<br>
 spring.jpa.properties.hibernate.dialect.storage_engine=innodb
-<br>
 spring.datasource.hikari.jdbc-url=jdbc:h2:mem://localhost/~/testdb;MODE=MYSQL
-<br>
-spring.h2.console.enabled=true
+spring.h2.console.enabled=true`
 <br><br>
 application.properties에 추가해야 하는 문장을 책에 나온거 말고 위에꺼로 해야함
 
@@ -95,5 +89,63 @@ application.properties에 추가해야 하는 문장을 책에 나온거 말고 
 postsRepository가 보라색이어야 인식된거임. 회색이면 다시 체크해보기.<br>
 <br><br>
 뭔가 인식이 잘 안 된다 싶으면 클래스명부터 다시 적고 작성해보기.
+
+---
+
+- 116페이지
+
+1. build.gradle의 dependencies에 `implementation "com.h2database:h2"`를추가
+2. h2콘솔에 접속한 다음 <br>
+`spring.datasource.hikari.jdbc-url=jdbc:h2:mem://localhost/~/testdb;MODE=MYSQL`
+
+위와 같이 작성했었으니, JDBC url에도 `jdbc:h2:mem://localhost/~/testdb;MODE=MYSQL` 
+<br>
+입력 후 connect버튼 클릭하기.
+3. `#spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL57Dialect
+   #spring.jpa.properties.hibernate.dialect.storage_engine=innodb`
+<br>
+추가로 첨언하자면 100페이지에서 추가했던 것들 중 위 둘은 주석처리 해도 됨
+
+---
+
+- 130페이지
+
+1. 인텔리제이를 실행합니다.
+2. 상단 메뉴에서 File > Settings를 선택합니다.
+3. 왼쪽 메뉴에서 Plugins를 선택합니다.
+4. 오른쪽 상단에 있는 Marketplace 버튼을 클릭합니다.
+5. 검색창에 Mustache를 입력하고, Search in repositories를 선택합니다.
+6. 검색 결과에서 Handlebars/Mustache 플러그인을 선택하고, Install 버튼을 클릭합니다.
+7. 설치가 완료되면, Restart IDE 버튼을 클릭해서 인텔리제이를 재시작합니다.
+8. Restart IDE 버튼은 플러그인을 설치한 후 나타납니다.
+9. 만약 플러그인을 설치한 후 Restart IDE 버튼이 나타나지 않는다면, File > Invalidate Caches / Restart를 선택하면 됩니다. 이렇게 하면 인텔리제이가 종료되고, 재시작됩니다.
+
+---
+
+- 134페이지
+
+1. 스프링부트 3버전으로 테스트시 한글이 깨져서 나온다면 application.properties에
+<br>
+`server.servlet.encoding.force-response=true` 을 추가하면 한글인코딩이 안깨집니다.
+
+---
+
+- 143페이지 index.js 추가 부분
+
+
+1. src 경로 지정할때 자동완성 안 됨. 그냥 교재 나온대로 쳐야함.
+
+
+---
+
+- 148페이지
+
+1. `@Transactional` 어노테이션 쓸 때 org.springframework.transaction.annotation 을 import 할것
+
+---
+
+- 150페이지
+
+1. 혹시라도 IndexController 클래스 위에 `@RequiredArgsConstructor` 빼먹었다면 다시 체크하기.
 
 ---

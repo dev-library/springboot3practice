@@ -3,12 +3,17 @@ package com.devrary.book.springboot3webservice.service.post;
 
 import com.devrary.book.springboot3webservice.domain.posts.Posts;
 import com.devrary.book.springboot3webservice.domain.posts.PostsRepository;
+import com.devrary.book.springboot3webservice.web.dto.PostsListResponseDTO;
 import com.devrary.book.springboot3webservice.web.dto.PostsResponseDTO;
 import com.devrary.book.springboot3webservice.web.dto.PostsSaveRequestDTO;
 import com.devrary.book.springboot3webservice.web.dto.PostsUpdateRequestDTO;
-import jakarta.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -36,4 +41,12 @@ public class PostsService {
 
         return new PostsResponseDTO(entity);
     }
+
+   @Transactional(readOnly = true)
+    public List<PostsListResponseDTO> findAllDesc(){
+        return postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDTO::new)
+                .collect(Collectors.toList());
+    }
+
 }

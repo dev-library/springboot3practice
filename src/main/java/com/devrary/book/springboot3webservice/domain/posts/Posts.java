@@ -1,5 +1,6 @@
 package com.devrary.book.springboot3webservice.domain.posts;
 
+import com.devrary.book.springboot3webservice.domain.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity // 엔티티는 반드시 Primary key 역할을 할 멤버변수를 가져야 한다.
-public class Posts {
+public class Posts extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
