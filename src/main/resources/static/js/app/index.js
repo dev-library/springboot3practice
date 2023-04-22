@@ -4,6 +4,12 @@ let main = {
         $('#btn-save').on('click', function () {
             _this.save();
         });
+        $('#btn-update').on('click', function(){
+            _this.update();
+        });
+        $('#btn-delete').on('click', function(){
+            _this.delete();
+        });
     },
     save : () => {
         let data = {
@@ -43,6 +49,21 @@ let main = {
             window.location.href = '/';
         }).fail(error => {
             alert(JSON.stringify(error));
+        });
+    },
+    delete : () => {
+        let id = $("#id").val();
+
+        $.ajax({
+            type: 'DELETE',
+            url: '/api/v1/posts/' + id,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8'})
+            .done(() => {
+                alert('글이 삭제되었습니다.');
+                window.location.href = '/';
+            }).fail(error => {
+                alert(JSON.stringify(error));
         });
     },
 
