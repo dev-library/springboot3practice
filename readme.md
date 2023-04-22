@@ -149,3 +149,29 @@ postsRepository가 보라색이어야 인식된거임. 회색이면 다시 체�
 1. 혹시라도 IndexController 클래스 위에 `@RequiredArgsConstructor` 빼먹었다면 다시 체크하기.
 
 ---
+
+- 170페이지
+
+1. OAuth클라이언트 아이디를 만드려면 먼저 OAuth 동의화면을 구성시켜야 합니다.
+2. 구성되고 나서 사이드바의 사용자 인증 정보 -> OAuth 클라이언트 ID 만들기 선택!
+
+---
+
+- 180 페이지
+
+1. 그간 `WebSecurityConfigurerAdapter` 클래스를 상속해서 `SecurityConfig`클래스를 작성했으나
+   deprecated 되어 사용할 수 없는 상황입니다.
+2. 따라서 `SecurityFilterChain`을 `@Bean`으로 등록해 써야합니다.
+3. https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter
+4. 요약하자면, 현재 쓸 수 deprecated된 것들을 따져보자면 
+<br>
+`antMatchers()` -> `requestMatchers()`, `authorizeRequests()` -> `authorizeHttpRequests()`
+5. 그리고 파라미터로 받은 `http` 객체는 마지막에 `http.build()` 구문으로 빌드해 리턴합니다.
+ 
+
+---
+
+- 191 페이지
+
+1. User는 예약어이므로 이 책에서 User라는 Entity는 변경해야함.
+2. Member로 변경하고 다시 해봄.
