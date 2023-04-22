@@ -3,7 +3,9 @@ package com.devrary.book.springboot3webservice.web.dto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.assertj.core.api.Assertions;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
 public class HelloResponseDTOTest {
 
     @Test
