@@ -38,10 +38,16 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client:3.0.6'
 // https://mvnrepository.com/artifact/org.springframework.session/spring-session-jdbc
     implementation 'org.springframework.session:spring-session-jdbc:3.0.1'
+// https://mvnrepository.com/artifact/org.springframework.security/spring-security-test
+    testImplementation 'org.springframework.security:spring-security-test:6.0.3'
 
 
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }

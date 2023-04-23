@@ -185,6 +185,50 @@ postsRepository가 보라색이어야 인식된거임. 회색이면 다시 체�
 - 212 페이지
 
 1. 전체 테스트를 진행해봤지만 2개 클래스만 진행됨. 이유가 뭔지 알 길이 없음.
-2. 테스트 메서드명이 한글인 것들은 깨져서 나옴.
+2. 알고보니 전체 테스트는 잘 진행되었음. 알고보니 좌하단 탭에서 실패케이스만 보여줌
+3. 테스트 메서드명이 한글인 것들은 깨져서 나옴.
+4. 상단 help -> edit custom vm options에서 `-Dfile.encoding=UTF-8` 입력후 저장
 
 ---
+
+- 213 페이지
+
+1. 책에서는 test랑 main환경이 다르다는데 `spring.profiles.include=oauth` 를 
+<br>
+   application.properties에 입력해둔 상황에서는 그냥 같게 인식됨 
+
+---
+
+- 218 페이지
+
+1. mvc.perform에서 사용하는 `MediaType.APPLICATION_JSON_UTF8`은 deprecated됨
+   따라서, response-header의 content-type에 `charset=UTF-8`이 제거되어 인코딩이 깨짐
+2. 이를 방지하기 위해 MockMvc 빌드시 `CharacterEncodingFilter`를 추가해야함.
+3. https://pompitzz.github.io/blog/Spring/MockMvc_Encoding.html#%E1%84%8B%E1%85%A8%E1%84%89%E1%85%B5
+4. `@Before` 는 `@BeforeEach`로 대체해서 사용하기.
+
+---
+
+## 여기까지 해서 스프링부트3에 맞게 스프링부트와 AWS로 혼자 구현하는 웹서비스를 1독했읍니다.
+
+아래는 단계별로 진행하며 추가한 의존성들입니다.
+- // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
+implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '3.0.5'
+<br>
+- // https://mvnrepository.com/artifact/com.h2database/h2
+testImplementation group: 'com.h2database', name: 'h2', version: '2.1.214'
+<br>
+- implementation "com.h2database:h2:"
+<br>
+- // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mustache
+implementation 'org.springframework.boot:spring-boot-starter-mustache'
+<br>
+- // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-oauth2-client
+implementation 'org.springframework.boot:spring-boot-starter-oauth2-client:3.0.6'
+<br>
+- // https://mvnrepository.com/artifact/org.springframework.session/spring-session-jdbc
+implementation 'org.springframework.session:spring-session-jdbc:3.0.1'
+<br>
+- // https://mvnrepository.com/artifact/org.springframework.security/spring-security-test
+testImplementation 'org.springframework.security:spring-security-test:6.0.3'
+<br>

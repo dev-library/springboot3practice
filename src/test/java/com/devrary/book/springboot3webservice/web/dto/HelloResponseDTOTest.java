@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class HelloResponseDTOTest {
 
     @Test
-    @DisplayName("테스트테스트")
+    @DisplayName("롬복기능 테스트")
     public void 롬복_기능_테스트(){
         // given
         String name = "test";
